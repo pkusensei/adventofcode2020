@@ -1,21 +1,6 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    path::Path,
-    str::FromStr,
-};
+use std::str::FromStr;
 
-type Error = Box<dyn std::error::Error>;
-
-fn read_input<P: AsRef<Path>>(p: P) -> Result<Vec<String>, Error> {
-    let file = File::open(p)?;
-    let reader = BufReader::new(file);
-    let mut lines = vec![];
-    for line in reader.lines() {
-        lines.push(line?)
-    }
-    Ok(lines)
-}
+use tools::{self, Error};
 
 fn find_limits(s: &str) -> Result<(u8, u8), Error> {
     let numbers = s
@@ -74,7 +59,7 @@ fn check_valid_position(s: &str) -> bool {
 }
 
 fn main() -> Result<(), Error> {
-    let input = read_input("input.txt")?;
+    let input = tools::read_input("input.txt")?;
 
     let count = input.iter().filter(|s| check_valid(s)).count();
     println!("Count: {}", count);

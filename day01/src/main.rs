@@ -1,22 +1,15 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    path::Path,
-    str::FromStr,
-};
+use std::{path::Path, str::FromStr};
 
-type Error = Box<dyn std::error::Error>;
+use tools::{self, Error};
 
 const SUM: u32 = 2020;
 
 fn read_input<P: AsRef<Path>>(p: P) -> Result<Vec<u32>, Error> {
-    let file = File::open(p)?;
-    let reader = BufReader::new(file);
-    let mut numbers = vec![];
-    for line in reader.lines() {
-        let num = u32::from_str(&line?)?;
-        numbers.push(num)
-    }
+    let lines = tools::read_input(p)?;
+    let mut numbers = lines
+        .iter()
+        .map(|s| u32::from_str(s))
+        .collect::<Result<Vec<_>, _>>()?;
     numbers.sort();
     Ok(numbers)
 }
