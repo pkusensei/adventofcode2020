@@ -32,7 +32,8 @@ fn find_seat_id(ids: &BTreeSet<u32>) -> u32 {
         .collect();
     all_ids
         .difference(&ids)
-        .find(|id| ids.contains(&(**id + 1)) && ids.contains(&(**id - 1)))
+        .copied()
+        .find(|&id| ids.contains(&(id + 1)) && ids.contains(&(id - 1)))
         .unwrap()
         .clone()
 }
