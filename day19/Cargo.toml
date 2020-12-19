@@ -1,0 +1,9 @@
+[package]
+name = "day19"
+version = "0.1.0"
+authors = ["pkusensei"]
+edition = "2018"
+
+
+[dependencies]
+itertools = "^0.9"
